@@ -135,6 +135,9 @@
   .hint { font-size: 12px; color: var(--text-faint); margin-top: 12px; line-height: 1.7; }
 
   footer { margin-top: 48px; text-align: center; font-size: 12px; color: var(--text-faint); }
+  .busuanzi-wrap { margin-bottom: 6px; color: var(--text-dim); letter-spacing: 0.02em; }
+  .busuanzi-sep { margin: 0 8px; color: var(--text-faint); }
+  #busuanzi_value_site_pv, #busuanzi_value_site_uv { color: var(--accent); font-family: var(--mono); }
 
   @media (max-width: 640px) {
     .wrap { padding: 24px 16px 60px; }
@@ -190,7 +193,14 @@
 
   <main class="list" id="list"></main>
 
-  <footer>未解锁时页面为只读；解锁后的修改仅保存在当前浏览器，可导出数据再固化发布。</footer>
+  <footer>
+    <div class="busuanzi-wrap">
+      <span>本站总访问量 <span id="busuanzi_value_site_pv">—</span> 次</span>
+      <span class="busuanzi-sep">·</span>
+      <span>今日访问 <span id="busuanzi_value_site_uv">—</span> 人</span>
+    </div>
+    <div>未解锁时页面为只读；解锁后的修改仅保存在当前浏览器，可导出数据再固化发布。</div>
+  </footer>
 </div>
 
 <!-- 密码解锁弹窗 -->
@@ -508,5 +518,6 @@
   render();
 })();
 </script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
