@@ -48,6 +48,8 @@
   .masthead .credit { margin-top: 10px; font-size: 13px; color: var(--text-faint); }
   .masthead .credit b { color: var(--text-dim); font-weight: 600; }
   .masthead .credit .qq { color: var(--accent); font-family: var(--mono); }
+  .masthead .feedback { margin-top: 6px; font-size: 12.5px; color: var(--text-faint); }
+  .masthead .feedback .mail { color: var(--text-dim); font-family: var(--mono); }
   .stats { display: flex; gap: 28px; }
   .stat .num { font-family: var(--mono); font-size: 24px; font-weight: 600; color: var(--text); }
   .stat .label { font-size: 12px; color: var(--text-faint); }
@@ -86,16 +88,29 @@
   /* ===== 列表 ===== */
   .list { display: flex; flex-direction: column; gap: 14px; }
   .card {
-    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 20px 22px; transition: border-color .15s, background .15s;
+    position: relative; overflow: hidden;
+    background: linear-gradient(150deg, rgba(24,36,56,0.72), rgba(16,24,39,0.66));
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px 22px; transition: border-color .2s, background .2s, transform .2s;
   }
-  .card:hover { border-color: #33465f; background: var(--panel-2); }
-  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.06), transparent 32%);
+  }
+  .card::after {
+    content: ""; position: absolute; top: 0; left: -70%; width: 45%; height: 100%; pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.10), transparent);
+    transform: skewX(-18deg); transition: left .6s ease;
+  }
+  .card:hover { border-color: #33465f; background: var(--panel-2); transform: translateY(-2px); }
+  .card:hover::after { left: 130%; }
+  .card-top { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   .card-title { font-size: 16px; font-weight: 600; word-break: break-word; }
-  .card-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; font-size: 12.5px; color: var(--text-dim); }
+  .card-meta { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; font-size: 12.5px; color: var(--text-dim); }
   .card-meta .meta-item { display: inline-flex; align-items: center; gap: 6px; }
   .card-meta svg { width: 13px; height: 13px; color: var(--text-faint); }
-  .card-desc { margin-top: 12px; color: var(--text-dim); font-size: 14px; word-break: break-word; white-space: pre-wrap; }
+  .card-desc { position: relative; z-index: 1; margin-top: 12px; color: var(--text-dim); font-size: 14px; word-break: break-word; white-space: pre-wrap; }
   .tag {
     display: inline-flex; align-items: center; font-family: var(--mono); font-size: 11.5px;
     padding: 4px 11px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); white-space: nowrap;
@@ -161,6 +176,7 @@
       <h1>喵喵秋资源</h1>
       <p>把零散的资料、链接和笔记收拢到一处，支持按分类筛选与关键词检索。</p>
       <div class="credit">创作者：<b>釉里红</b>　·　QQ 群：<span class="qq">1131799957</span></div>
+      <div class="feedback">如有问题，请反馈至：<span class="mail">2156808309@qq.com</span></div>
     </div>
     <div class="stats">
       <div class="stat"><div class="num" id="stat-total">0</div><div class="label">全部条目</div></div>
@@ -235,6 +251,10 @@
         <option>学习笔记</option>
         <option>资料链接</option>
         <option>工具收藏</option>
+        <option>临时专区</option>
+        <option>工具专属</option>
+        <option>实用工具</option>
+        <option>玩机工具</option>
         <option>待办备忘</option>
         <option>其他</option>
       </select>
@@ -264,7 +284,7 @@
   var AUTHEM_KEY = "note-archive-authed";
 
   // ===== 固化条目：发布基线，访客首次打开看到这些 =====
- var BASE_ITEMS = [
+  var BASE_ITEMS = [
   { title: "甲壳虫adb助手", cat: "工具收藏", link: "https://pan.xunlei.com/s/VP5kODWfxJ1D8KpL-gFr7OYqA1?pwd=pm4k#", desc: "ADB 调试辅助工具。", updated: "2026-11-14" },
   { title: "安卓强制截屏", cat: "工具收藏", link: "https://pan.xunlei.com/s/VP5kOAd4xJ1D8KpL-gFr7MGDA1?pwd=4pry#", desc: "强制截屏工具。", updated: "2026-11-14" },
   { title: "一键隐藏环境", cat: "工具收藏", link: "https://pan.quark.cn/s/a44a10a5f854", desc: "", updated: "2026-11-15" },
@@ -450,6 +470,7 @@
   ];
 
 
+
   // 旧版本遗留的两条示例占位条目，启动时从本机缓存里剔除
   var LEGACY_DEMO_TITLES = ["示例：常用工具收藏", "示例：学习笔记"];
   function pruneLegacyCache() {
@@ -515,7 +536,8 @@
   }
 
   function renderFilters() {
-    var cats = ["全部"];
+    var fixedCats = ["临时专区", "工具专属", "实用工具", "玩机工具"];
+    var cats = ["全部"].concat(fixedCats);
     state.items.forEach(function (it) { if (cats.indexOf(it.cat) === -1) cats.push(it.cat); });
     filtersEl.innerHTML = "";
     cats.forEach(function (c) {
