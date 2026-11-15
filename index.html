@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>喵喵秋资源</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230b1220'/%3E%3Cpath d='M7 8h10M7 12h10M7 16h6' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --bg-soft: #101827;
+    --panel: #131d2e;
+    --panel-2: #182438;
+    --line: #243349;
+    --line-soft: #1c2939;
+    --text: #e6edf5;
+    --text-dim: #93a4b8;
+    --text-faint: #64788f;
+    --accent: #38bdf8;
+    --accent-soft: rgba(56, 189, 248, 0.14);
+    --accent-2: #818cf8;
+    --danger: #f87171;
+    --radius: 12px;
+    --mono: "SFMono-Regular", "Cascadia Code", Consolas, "Courier New", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .bg-glow {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(900px 480px at 12% -10%, rgba(56,189,248,0.10), transparent 60%),
+      radial-gradient(800px 420px at 95% 0%, rgba(129,140,248,0.09), transparent 55%);
+  }
+  .wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* ===== 头部 ===== */
+  header.masthead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+  .masthead .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  .masthead h1 { font-size: 30px; font-weight: 700; letter-spacing: 0.01em; }
+  .masthead p { color: var(--text-dim); margin-top: 8px; max-width: 520px; font-size: 14px; }
+  .stats { display: flex; gap: 28px; }
+  .stat .num { font-family: var(--mono); font-size: 24px; font-weight: 600; color: var(--text); }
+  .stat .label { font-size: 12px; color: var(--text-faint); }
+
+  /* ===== 工具栏 ===== */
+  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 22px; }
+  .search-box { position: relative; flex: 1 1 260px; min-width: 200px; }
+  .search-box svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-faint); }
+  .search-box input {
+    width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    color: var(--text); padding: 12px 14px 12px 42px; font-size: 14px; outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  .search-box input::placeholder { color: var(--text-faint); }
+  .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    background: var(--panel); border: 1px solid var(--line); color: var(--text-dim);
+    padding: 9px 15px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .15s;
+  }
+  .chip:hover { color: var(--text); border-color: var(--text-faint); }
+  .chip.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-left: auto; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); color: var(--text-dim);
+    background: var(--panel); border-radius: var(--radius); padding: 10px 16px; font-size: 13.5px; cursor: pointer; transition: all .15s;
+  }
+  .btn:hover { color: var(--text); border-color: var(--text-faint); }
+  .btn.primary { background: var(--accent); color: #06121c; border-color: var(--accent); font-weight: 600; }
+  .btn.primary:hover { filter: brightness(1.1); }
+  .btn svg { width: 15px; height: 15px; }
+  .toolbar.authed .btn-lock { display: inline-flex; }
+  .btn-lock { display: none; }
+
+  /* ===== 列表 ===== */
+  .list { display: flex; flex-direction: column; gap: 14px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px 22px; transition: border-color .15s, background .15s;
+  }
+  .card:hover { border-color: #33465f; background: var(--panel-2); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .card-title { font-size: 16px; font-weight: 600; word-break: break-word; }
+  .card-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; font-size: 12.5px; color: var(--text-dim); }
+  .card-meta .meta-item { display: inline-flex; align-items: center; gap: 6px; }
+  .card-meta svg { width: 13px; height: 13px; color: var(--text-faint); }
+  .card-desc { margin-top: 12px; color: var(--text-dim); font-size: 14px; word-break: break-word; white-space: pre-wrap; }
+  .tag {
+    display: inline-flex; align-items: center; font-family: var(--mono); font-size: 11.5px;
+    padding: 4px 11px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); white-space: nowrap;
+  }
+  .card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .icon-btn {
+    background: transparent; border: 1px solid transparent; color: var(--text-faint); border-radius: 8px;
+    width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all .15s;
+  }
+  .icon-btn:hover { color: var(--text); background: var(--panel-2); border-color: var(--line); }
+  .icon-btn.danger:hover { color: var(--danger); border-color: rgba(248,113,113,0.35); }
+  .icon-btn svg { width: 15px; height: 15px; }
+  .card-actions { display: none; }
+  .toolbar.authed .card-actions { display: flex; }
+
+  .empty { text-align: center; padding: 70px 20px; color: var(--text-faint); border: 1px dashed var(--line); border-radius: var(--radius); }
+  .empty svg { width: 34px; height: 34px; margin-bottom: 14px; opacity: 0.5; }
+  .empty p { font-size: 14px; }
+
+  /* ===== 弹窗 ===== */
+  dialog {
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: 16px; color: var(--text);
+    padding: 26px; width: min(480px, calc(100vw - 40px)); margin: auto;
+  }
+  dialog::backdrop { background: rgba(4, 8, 14, 0.7); backdrop-filter: blur(3px); }
+  dialog h2 { font-size: 18px; margin-bottom: 20px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 7px; }
+  .field input, .field select, .field textarea {
+    width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; color: var(--text);
+    padding: 11px 13px; font-size: 14px; outline: none; font-family: inherit;
+  }
+  .field textarea { resize: vertical; min-height: 84px; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+  .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--text-dim); padding: 10px 18px; border-radius: 10px; font-size: 14px; cursor: pointer; }
+  .btn-ghost:hover { color: var(--text); border-color: var(--text-faint); }
+  .btn-primary { background: var(--accent); color: #06121c; border: none; padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn-primary:hover { filter: brightness(1.1); }
+  .hint { font-size: 12px; color: var(--text-faint); margin-top: 12px; line-height: 1.7; }
+
+  footer { margin-top: 48px; text-align: center; font-size: 12px; color: var(--text-faint); }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 24px 16px 60px; }
+    .masthead h1 { font-size: 24px; }
+    .stats { gap: 20px; }
+    .card { padding: 16px 18px; }
+    .btn-row { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">Notes / Archive</div>
+      <h1>喵喵秋资源</h1>
+      <p>把零散的资料、链接和笔记收拢到一处，支持按分类筛选与关键词检索。</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num" id="stat-total">0</div><div class="label">全部条目</div></div>
+      <div class="stat"><div class="num" id="stat-cat">0</div><div class="label">分类数</div></div>
+    </div>
+  </header>
+
+  <div class="toolbar" id="toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+      <input type="search" id="search" placeholder="搜索标题、备注或链接…" autocomplete="off">
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="btn-row">
+      <button class="btn btn-lock" id="btn-add">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        新增条目
+      </button>
+      <button class="btn" id="btn-export">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        导出数据
+      </button>
+      <button class="btn" id="btn-import">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 15V3m0 0 4 4m-4-4-4 4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        导入数据
+      </button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden>
+      <button class="btn" id="btn-lock-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <span id="lock-label">管理编辑</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="list" id="list"></main>
+
+  <footer>未解锁时页面为只读；解锁后的修改仅保存在当前浏览器，可导出数据再固化发布。</footer>
+</div>
+
+<!-- 密码解锁弹窗 -->
+<dialog id="lock-dialog">
+  <h2>管理编辑</h2>
+  <div class="field">
+    <label for="lock-pass">输入管理密码</label>
+    <input id="lock-pass" type="password" autocomplete="off" placeholder="请输入密码">
+  </div>
+  <div class="hint">密码仅用于在本机解锁编辑入口；静态页面无法做真正的服务端鉴权，请勿在此存放敏感内容。</div>
+  <div class="dialog-actions">
+    <button type="button" class="btn-ghost" id="lock-cancel">取消</button>
+    <button type="button" class="btn-primary" id="lock-ok">解锁</button>
+  </div>
+</dialog>
+
+<!-- 新增 / 编辑弹窗 -->
+<dialog id="dialog">
+  <h2 id="dialog-title">新增条目</h2>
+  <form id="form" method="dialog">
+    <div class="field">
+      <label for="f-title">标题</label>
+      <input id="f-title" required maxlength="80" placeholder="给这条资料起个名字">
+    </div>
+    <div class="field">
+      <label for="f-cat">分类</label>
+      <select id="f-cat">
+        <option>学习笔记</option>
+        <option>资料链接</option>
+        <option>工具收藏</option>
+        <option>待办备忘</option>
+        <option>其他</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="f-link">链接（可选）</label>
+      <input id="f-link" type="url" placeholder="https://…">
+    </div>
+    <div class="field">
+      <label for="f-desc">备注（可选）</label>
+      <textarea id="f-desc" maxlength="500" placeholder="补充说明、来源、要点…"></textarea>
+    </div>
+    <div class="dialog-actions">
+      <button type="button" class="btn-ghost" id="btn-cancel">取消</button>
+      <button type="submit" class="btn-primary" id="btn-save">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+
+  // 管理密码（静态页可被查看源码，仅作本机入口遮挡，非真正安全鉴权）
+  var MANAGER_PASS = "kskblzdjd";
+  var STORAGE_KEY = "note-archive-v2";
+  var AUTHEM_KEY = "note-archive-authed";
+
+  // ===== 固化条目：发布基线，访客首次打开看到这些 =====
+  var BASE_ITEMS = [
+    { title: "甲壳虫adb助手", cat: "工具收藏", link: "https://pan.xunlei.com/s/VP5kODWfxJ1D8KpL-gFr7OYqA1?pwd=pm4k#", desc: "ADB 调试辅助工具。", updated: "2026-11-14" },
+    { title: "安卓强制截屏", cat: "工具收藏", link: "https://pan.xunlei.com/s/VP5kOAd4xJ1D8KpL-gFr7MGDA1?pwd=4pry#", desc: "强制截屏工具。", updated: "2026-11-14" }
+  ];
+
+  // 旧版本遗留的两条示例占位条目，启动时从本机缓存里剔除
+  var LEGACY_DEMO_TITLES = ["示例：常用工具收藏", "示例：学习笔记"];
+  function pruneLegacyCache() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return;
+      var kept = arr.filter(function (it) { return LEGACY_DEMO_TITLES.indexOf(it.title) === -1; });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(kept));
+    } catch (e) {}
+  }
+  pruneLegacyCache();
+
+  var state = { items: [], activeCat: "全部", keyword: "", authed: false, editingId: null };
+
+  var toolbar = document.getElementById("toolbar");
+  var listEl = document.getElementById("list");
+  var filtersEl = document.getElementById("filters");
+  var searchEl = document.getElementById("search");
+  var lockDialog = document.getElementById("lock-dialog");
+  var lockPass = document.getElementById("lock-pass");
+  var lockLabel = document.getElementById("lock-label");
+  var dialog = document.getElementById("dialog");
+  var form = document.getElementById("form");
+  var fTitle = document.getElementById("f-title");
+  var fCat = document.getElementById("f-cat");
+  var fLink = document.getElementById("f-link");
+  var fDesc = document.getElementById("f-desc");
+  var dialogTitle = document.getElementById("dialog-title");
+  var importFile = document.getElementById("import-file");
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      state.items = raw ? (JSON.parse(raw) || BASE_ITEMS.slice()) : BASE_ITEMS.slice();
+    } catch (e) { state.items = BASE_ITEMS.slice(); }
+    try { state.authed = localStorage.getItem(AUTHEM_KEY) === "1"; } catch (e) { state.authed = false; }
+  }
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); } catch (e) {}
+  }
+  function persistAuth() {
+    try {
+      if (state.authed) localStorage.setItem(AUTHEM_KEY, "1");
+      else localStorage.removeItem(AUTHEM_KEY);
+    } catch (e) {}
+  }
+  function today() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, "0");
+    var day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + m + "-" + day;
+  }
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function applyAuthUi() {
+    toolbar.classList.toggle("authed", state.authed);
+    lockLabel.textContent = state.authed ? "退出编辑" : "管理编辑";
+  }
+
+  function renderFilters() {
+    var cats = ["全部"];
+    state.items.forEach(function (it) { if (cats.indexOf(it.cat) === -1) cats.push(it.cat); });
+    filtersEl.innerHTML = "";
+    cats.forEach(function (c) {
+      var b = document.createElement("button");
+      b.className = "chip" + (state.activeCat === c ? " active" : "");
+      b.textContent = c;
+      b.addEventListener("click", function () { state.activeCat = c; render(); });
+      filtersEl.appendChild(b);
+    });
+  }
+
+  function filtered() {
+    var kw = state.keyword.trim().toLowerCase();
+    return state.items.filter(function (it) {
+      var okCat = state.activeCat === "全部" || it.cat === state.activeCat;
+      var hay = (it.title + " " + it.desc + " " + it.link).toLowerCase();
+      var okKw = !kw || hay.indexOf(kw) !== -1;
+      return okCat && okKw;
+    });
+  }
+
+  function render() {
+    renderFilters();
+    applyAuthUi();
+    var items = filtered();
+
+    document.getElementById("stat-total").textContent = state.items.length;
+    document.getElementById("stat-cat").textContent = (function () {
+      var s = {}; state.items.forEach(function (it) { s[it.cat] = 1; });
+      return Object.keys(s).length;
+    })();
+
+    listEl.innerHTML = "";
+    if (items.length === 0) {
+      var empty = document.createElement("div");
+      empty.className = "empty";
+      empty.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12l3 4v14H3V7z"/><path d="M3 7h18M9 12h6"/></svg>' +
+        "<p>没有匹配的内容，换个关键词或分类试试。</p>";
+      listEl.appendChild(empty);
+      return;
+    }
+
+    items.forEach(function (it) {
+      var card = document.createElement("article");
+      card.className = "card";
+
+      var linkDomain = "";
+      try { linkDomain = new URL(it.link).hostname.replace(/^www\./, ""); } catch (e) { linkDomain = it.link; }
+      var linkHtml = it.link
+        ? '<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg><a href="' + escapeHtml(it.link) + '" target="_blank" rel="noopener noreferrer" title="' + escapeHtml(it.link) + '" style="color:var(--accent);text-decoration:none">' + escapeHtml(linkDomain) + "</a></span>"
+        : "";
+
+      card.innerHTML =
+        '<div class="card-top">' +
+          '<div style="min-width:0">' +
+            '<div class="card-title">' + escapeHtml(it.title) + "</div>" +
+            '<div class="card-meta">' +
+              '<span class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>' + escapeHtml(it.updated) + "</span>" +
+              linkHtml +
+            "</div>" +
+          "</div>" +
+          '<div class="card-actions">' +
+            '<button class="icon-btn" data-act="edit" title="编辑"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></button>' +
+            '<button class="icon-btn danger" data-act="del" title="删除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg></button>' +
+          "</div>" +
+        "</div>" +
+        (it.desc ? '<div class="card-desc">' + escapeHtml(it.desc) + "</div>" : "") +
+        '<div style="margin-top:12px"><span class="tag">' + escapeHtml(it.cat) + "</span></div>";
+
+      card.querySelector('[data-act="edit"]').addEventListener("click", function () { openDialog(it.id); });
+      card.querySelector('[data-act="del"]').addEventListener("click", function () { removeItem(it.id); });
+      listEl.appendChild(card);
+    });
+  }
+
+  function openDialog(id) {
+    state.editingId = id == null ? null : id;
+    if (id == null) {
+      dialogTitle.textContent = "新增条目";
+      form.reset();
+      fCat.value = "工具收藏";
+    } else {
+      var it = state.items.find(function (x) { return x.id === id; });
+      if (!it) return;
+      dialogTitle.textContent = "编辑条目";
+      fTitle.value = it.title;
+      fCat.value = it.cat;
+      fLink.value = it.link || "";
+      fDesc.value = it.desc || "";
+    }
+    dialog.showModal();
+    fTitle.focus();
+  }
+
+  function removeItem(id) {
+    var it = state.items.find(function (x) { return x.id === id; });
+    if (!it) return;
+    if (!confirm('确定删除「' + it.title + '」吗？')) return;
+    state.items = state.items.filter(function (x) { return x.id !== id; });
+    save(); render();
+  }
+
+  function nextId() {
+    return state.items.length ? Math.max.apply(null, state.items.map(function (x) { return x.id || 0; })) + 1 : 1;
+  }
+
+  // ===== 解锁 / 退出 =====
+  document.getElementById("btn-lock-toggle").addEventListener("click", function () {
+    if (state.authed) {
+      state.authed = false; persistAuth(); render();
+      return;
+    }
+    lockPass.value = "";
+    lockDialog.showModal();
+    lockPass.focus();
+  });
+  document.getElementById("lock-cancel").addEventListener("click", function () { lockDialog.close(); });
+  document.getElementById("lock-ok").addEventListener("click", function () {
+    if (lockPass.value === MANAGER_PASS) {
+      state.authed = true; persistAuth(); lockDialog.close(); render();
+    } else {
+      lockPass.value = ""; lockPass.focus();
+      alert("密码不正确");
+    }
+  });
+
+  // ===== 条目增删改 =====
+  document.getElementById("btn-add").addEventListener("click", function () { openDialog(null); });
+  document.getElementById("btn-cancel").addEventListener("click", function () { dialog.close(); });
+  searchEl.addEventListener("input", function () { state.keyword = searchEl.value; render(); });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var title = fTitle.value.trim();
+    if (!title) return;
+    var payload = {
+      title: title,
+      cat: fCat.value,
+      link: fLink.value.trim(),
+      desc: fDesc.value.trim()
+    };
+    if (state.editingId == null) {
+      state.items.push(Object.assign({ id: nextId(), updated: today() }, payload));
+    } else {
+      var idx = state.items.findIndex(function (x) { return x.id === state.editingId; });
+      if (idx !== -1) state.items[idx] = Object.assign({}, state.items[idx], payload, { updated: today() });
+    }
+    save(); dialog.close(); render();
+  });
+
+  // ===== 导出 / 导入 =====
+  document.getElementById("btn-export").addEventListener("click", function () {
+    var blob = new Blob([JSON.stringify(state.items, null, 2)], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "喵喵秋资源-数据.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  });
+
+  document.getElementById("btn-import").addEventListener("click", function () { importFile.click(); });
+  importFile.addEventListener("change", function () {
+    var file = importFile.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var parsed = JSON.parse(reader.result);
+        if (!Array.isArray(parsed)) throw new Error("格式不对");
+        state.items = parsed;
+        save(); render();
+        alert("导入成功，共 " + parsed.length + " 条。");
+      } catch (err) {
+        alert("导入失败：文件不是有效的数据 JSON。");
+      }
+      importFile.value = "";
+    };
+    reader.readAsText(file, "utf-8");
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
