@@ -72,6 +72,7 @@
   }
   .chip:hover { color: var(--text); border-color: var(--text-faint); }
   .chip.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .chip.featured { border-color: var(--accent); color: var(--accent); font-weight: 600; }
 
   .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-left: auto; }
   .btn {
@@ -256,6 +257,7 @@
     <div class="field">
       <label for="f-cat">分类</label>
       <select id="f-cat">
+        <option>作者推荐</option>
         <option>学习笔记</option>
         <option>资料链接</option>
         <option>工具收藏</option>
@@ -477,7 +479,81 @@
   { title: "线程优化二改221", cat: "工具收藏", link: "https://pan.quark.cn/s/86242579a1ea", desc: "", updated: "2026-11-15" },
   { title: "Scene", cat: "工具收藏", link: "https://pan.quark.cn/s/56a66602f7b8", desc: "", updated: "2026-11-15" },
   { title: "perfpilot 调度模块", cat: "工具收藏", link: "https://pan.quark.cn/s/a3f2c30535a7", desc: "", updated: "2026-11-15" },
-  { title: "lz4kds 内存压缩", cat: "工具收藏", link: "https://pan.quark.cn/s/8cead9e7edfc", desc: "", updated: "2026-11-15" }
+  { title: "lz4kds 内存压缩", cat: "工具收藏", link: "https://pan.quark.cn/s/8cead9e7edfc", desc: "", updated: "2026-11-15" }，
+  { title: "LSPosed", cat: "玩机工具", link: "https://pan.quark.cn/s/fd5e867623a6", desc: "一个框架，会增加日常占用和功耗。", updated: "2026-11-16" },
+  { title: "HMAOSS以及配置", cat: "玩机工具", link: "https://pan.quark.cn/s/34a5b62cff71", desc: "隐藏相关模块及配置文件。", updated: "2026-11-16" },
+  { title: "Zygisk Next", cat: "玩机工具", link: "https://pan.quark.cn/s/04a84b9e416c", desc: "Zygisk框架拓展。", updated: "2026-11-16" },
+  { title: "TEESimulator-RS", cat: "玩机工具", link: "https://pan.quark.cn/s/10cf13969b48", desc: "debug版本用于隐藏BL状态。", updated: "2026-11-16" },
+  { title: "Tricky Addon Enhanced", cat: "玩机工具", link: "https://pan.quark.cn/s/cf1199128ec1", desc: "环境隐藏增强模块。", updated: "2026-11-16" },
+  { title: "yuri", cat: "玩机工具", link: "https://pan.quark.cn/s/0916d0c9b324", desc: "COPG相关隐藏模块。", updated: "2026-11-16" },
+  { title: "gaybox", cat: "玩机工具", link: "https://pan.quark.cn/s/2854f68dc947", desc: "最新的三绿密钥。", updated: "2026-11-16" },
+  { title: "PlayIntegrityFix", cat: "玩机工具", link: "https://pan.quark.cn/s/2a6de189c9b5", desc: "Play完整性修复模块。", updated: "2026-11-16" },
+  { title: "k80u解锁", cat: "临时专区", link: "https://pan.quark.cn/s/35958abdaadd", desc: "302以上版本都支持。", updated: "2026-11-16" },
+  { title: "8gen3解锁", cat: "临时专区", link: "https://pan.quark.cn/s/f14aada5df5e", desc: "骁龙8 Gen3解锁工具。", updated: "2026-11-16" },
+  { title: "8gen2解锁", cat: "临时专区", link: "https://pan.quark.cn/s/b4bc64e2f93b", desc: "小米13、红米k60Pro、k70等机型高版本解锁。", updated: "2026-11-16" },
+  { title: "MTK 1200以下秒解", cat: "临时专区", link: "https://pan.quark.cn/s/4155704e09a0", desc: "实测k40g可用。", updated: "2026-11-16" },
+  { title: "vivo iQOO 9400解锁", cat: "临时专区", link: "https://pan.quark.cn/s/f6db5c6cc758", desc: "iQOO 9400芯片解锁工具。", updated: "2026-11-16" },
+  { title: "8100短变长", cat: "玩机工具", link: "https://pan.quark.cn/s/92c27a9ffd87", desc: "天玑8100相关修改模块。", updated: "2026-11-16" },
+  { title: "刷机驱动", cat: "实用工具", link: "https://pan.quark.cn/s/b74b318ee5d6", desc: "刷机必备驱动。", updated: "2026-11-16" },
+  { title: "vk优化和关闭系统logo", cat: "玩机工具", link: "https://pan.quark.cn/s/80f9f33c8781", desc: "vk优化，可关闭开机logo。", updated: "2026-11-16" },
+  { title: "删除温控（不限机型）", cat: "玩机工具", link: "https://pan.quark.cn/s/5491de3eab14", desc: "通用删除温控模块。", updated: "2026-11-16" },
+  { title: "游戏插针", cat: "玩机工具", link: "https://pan.quark.cn/s/38d4a300b7e7", desc: "游戏插针优化模块。", updated: "2026-11-16" },
+  { title: "西米露（OS2）", cat: "玩机工具", link: "https://pan.quark.cn/s/329a3e1a4ece", desc: "西米露OS2优化模块。", updated: "2026-11-16" },
+  { title: "绿厂用户去除温控以及官调", cat: "玩机工具", link: "https://pan.quark.cn/s/819252ec11c4", desc: "ColorOS去除温控、官方调度。", updated: "2026-11-16" },
+  { title: "系统UI流畅度优化模块", cat: "玩机工具", link: "https://pan.quark.cn/s/73b494aea66e", desc: "提升系统UI流畅度。", updated: "2026-11-16" },
+  { title: "状态栏歌词", cat: "玩机工具", link: "https://pan.quark.cn/s/68c2056fd684", desc: "状态栏显示歌词模块。", updated: "2026-11-16" },
+  { title: "fas核心调频插件", cat: "玩机工具", link: "https://pan.quark.cn/s/63d4e4b5f28a", desc: "核心调频调度插件。", updated: "2026-11-16" },
+  { title: "神里绫华v520", cat: "玩机工具", link: "https://pan.quark.cn/s/366c366d5bca", desc: "调度优化模块。", updated: "2026-11-16" },
+  { title: "禁用高通Gpu-boost", cat: "玩机工具", link: "https://pan.quark.cn/s/7160f33ecc46", desc: "关闭高通GPU boost。", updated: "2026-11-16" },
+  { title: "墓碑模块", cat: "玩机工具", link: "https://pan.quark.cn/s/a436f65661b1", desc: "后台墓碑管控模块。", updated: "2026-11-16" },
+  { title: "清理异常文件和修改MT2", cat: "玩机工具", link: "https://pan.quark.cn/s/c712f08d5c7e", desc: "清理异常文件、修改MT2。", updated: "2026-11-16" },
+  { title: "修改电量与性能", cat: "玩机工具", link: "https://pan.quark.cn/s/a82e7f5d2548", desc: "电量和性能自定义修改。", updated: "2026-11-16" },
+  { title: "zux光标皮肤", cat: "玩机工具", link: "https://pan.quark.cn/s/b1c7ef5ad05c", desc: "ZUX光标皮肤。", updated: "2026-11-16" },
+  { title: "AO后台优化v1.8", cat: "玩机工具", link: "https://pan.quark.cn/s/798e5aab754a", desc: "后台管控优化。", updated: "2026-11-16" },
+  { title: "LittleyouranCTS调度", cat: "玩机工具", link: "https://pan.quark.cn/s/10f518673c97", desc: "二改cts调度，大部分机型支持。", updated: "2026-11-16" },
+  { title: "TEE-RS", cat: "玩机工具", link: "https://pan.quark.cn/s/452222881d11", desc: "隐藏BL、换密钥、设置安全日期。", updated: "2026-11-16" },
+  { title: "y700三代亮度提升", cat: "玩机工具", link: "https://pan.quark.cn/s/f20160cc191e", desc: "拯救者Y700三代亮度优化。", updated: "2026-11-16" },
+  { title: "恢复官调服务sh", cat: "玩机工具", link: "https://pan.quark.cn/s/6e73cafef6f4", desc: "解决游戏助手帧率为0、30帧问题。", updated: "2026-11-16" },
+  { title: "电池锁容检测sh", cat: "玩机工具", link: "https://pan.quark.cn/s/d5356fd97b54", desc: "电池锁容检测脚本。", updated: "2026-11-16" },
+  { title: "温度伪装控制台", cat: "玩机工具", link: "https://pan.quark.cn/s/87d980f492ab", desc: "仅伪装温度，不是修改温控。", updated: "2026-11-16" },
+  { title: "b站增强模块", cat: "玩机工具", link: "https://pan.quark.cn/s/4104e3362257", desc: "B站增强，功能自测。", updated: "2026-11-16" },
+  { title: "春秋检测最新版本", cat: "玩机工具", link: "https://pan.quark.cn/s/34d038f755c9", desc: "环境检测模块。", updated: "2026-11-16" },
+  { title: "调度模块清理卸载残留", cat: "玩机工具", link: "https://pan.quark.cn/s/5bd0e97ec7d5", desc: "清理调度模块残留，谨慎使用。", updated: "2026-11-16" },
+  { title: "ace6金标超频", cat: "玩机工具", link: "https://pan.quark.cn/s/dd15bf738e0e", desc: "一加Ace6金标超频，新手不建议碰。", updated: "2026-11-16" },
+  { title: "zygisk-next", cat: "玩机工具", link: "https://pan.quark.cn/s/ea8d5d249074", desc: "KSU建议必刷。", updated: "2026-11-16" },
+  { title: "k100pm一键解锁工具", cat: "临时专区", link: "https://pan.quark.cn/s/d453877885da", desc: "电脑端工具，教程自行搜索。", updated: "2026-11-16" },
+  { title: "cpu限频省电控制台", cat: "玩机工具", link: "https://pan.quark.cn/s/6757b59d24b5", desc: "CPU限频省电控制台。", updated: "2026-11-16" },
+  { title: "充电优化", cat: "玩机工具", link: "https://pan.quark.cn/s/2d8fff4f8fbb", desc: "充电优化模块。", updated: "2026-11-16" },
+  { title: "MQ一键隐藏", cat: "作者推荐", link: "https://github.com/Sun-Only/111/blob/e2254f0abbab09f1e127f1b19d48ded0602d024d/base.apk", desc: "直链。", updated: "2026-11-22" },
+  { title: "OPGCE", cat: "玩机工具", link: "https://pan.quark.cn/s/c1958f70dda3", desc: "环境隐藏相关模块。", updated: "2026-11-16" },
+  { title: "手机提取全部分区软件", cat: "实用工具", link: "https://pan.quark.cn/s/961735d3eaf5", desc: "可粘贴链接，无需下载。", updated: "2026-11-16" },
+  { title: "紫罗兰工具箱v3.4", cat: "实用工具", link: "https://pan.quark.cn/s/4424111ecce4", desc: "电脑端刷机工具箱。", updated: "2026-11-16" },
+  { title: "星驰极速高刷", cat: "玩机工具", link: "https://pan.quark.cn/s/655987c69f54", desc: "稳定手机刷新率。", updated: "2026-11-16" },
+  { title: "开启通透质感", cat: "玩机工具", link: "https://pan.quark.cn/s/31150dae313d", desc: "系统通透质感优化，自测。", updated: "2026-11-16" },
+  { title: "智能侧边栏", cat: "玩机工具", link: "https://pan.quark.cn/s/eb082e18a039", desc: "需要LSP框架，侧边栏优化。", updated: "2026-11-16" },
+  { title: "LSPv2.0.1", cat: "玩机工具", link: "https://pan.quark.cn/s/9999d6bf846e", desc: "Lsposed框架。", updated: "2026-11-16" },
+  { title: "隐藏应用列表配置", cat: "玩机工具", link: "https://pan.quark.cn/s/84966b1e59c5", desc: "进入隐藏应用列表，点还原配置即可。", updated: "2026-11-16" },
+  { title: "Ticky v1.4.1", cat: "玩机工具", link: "https://pan.quark.cn/s/05f81a37044e", desc: "隐藏环境模块。", updated: "2026-11-16" },
+  { title: "酷安13.0.1", cat: "实用工具", link: "https://pan.quark.cn/s/d54ef821d74a", desc: "版本功耗更低。", updated: "2026-11-16" },
+  { title: "Fish的清理工具箱4.2", cat: "实用工具", link: "https://pan.quark.cn/s/7668719fe2b9", desc: "游戏清理、修改应用ID。", updated: "2026-11-16" },
+  { title: "隐藏BL列表", cat: "玩机工具", link: "https://pan.quark.cn/s/a2d23a5ba99b", desc: "阿尔法和狐狸面具使用。", updated: "2026-11-16" },
+  { title: "防设备标记模块", cat: "玩机工具", link: "https://pan.quark.cn/s/485cc4944dd6", desc: "防止设备被检测标记。", updated: "2026-11-16" },
+  { title: "月红隐藏模块V5.4.7", cat: "玩机工具", link: "https://pan.quark.cn/s/430f7e9ada7a", desc: "主流面具通用隐藏模块。", updated: "2026-11-16" },
+  { title: "ColorOS满血核心9.2.8", cat: "玩机工具", link: "https://pan.quark.cn/s/2f0d13a75c7c", desc: "ColorOS满血调度模块。", updated: "2026-11-16" },
+  { title: "ReSukiSU v4.1.0", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NDUr2hvaue3Z3Wrz5WSUBA1?pwd=k7pn#", desc: "Root管理器。", updated: "2026-11-16" },
+  { title: "KowSU v3.2.5", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0ND1fXzxFZ-kpHcjV_lYp_A1?pwd=yh57#", desc: "Root管理器。", updated: "2026-11-16" },
+  { title: "Wild KSU v3.1.2", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NDuskMDxhOpW7ePASdrsrA1?pwd=vxvq#", desc: "Root管理器。", updated: "2026-11-16" },
+  { title: "SukiSU v4.1.3", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NDM22PPQVsjjPJQ9dU8DiA1?pwd=x23v#", desc: "Root管理器。", updated: "2026-11-16" },
+  { title: "Alpha v30.7", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NB9NnMwh7-Xl67M0sgUsLA1?pwd=93ma#", desc: "Root管理器。", updated: "2026-11-16" },
+  { title: "Magisk v30.7", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NDDXqRhnG20B2vQW2fZPWA1?pwd=qxcj#", desc: "经典Magisk面具。", updated: "2026-11-16" },
+  { title: "KernelSU Next v3.3.0", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NCsRaGG5yobSO9l8CWQK4A1?pwd=fcmc#", desc: "KernelSU Next版本。", updated: "2026-11-16" },
+  { title: "KernelSU v3.2.4", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NCiJ_ZUI2UIgZslNNVcxFA1?pwd=m8mv#", desc: "KernelSU稳定版。", updated: "2026-11-16" },
+  { title: "APatch v11216", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NCFqJiCkTqWRU0eaopiSPA1?pwd=buqk#", desc: "APatch提权工具。", updated: "2026-11-16" },
+  { title: "Folkpatch", cat: "工具专属", link: "https://pan.xunlei.com/s/VP0NCQHuzxFZ-kpHcjV_ky3vA1?pwd=q43d#", desc: "Patch工具。", updated: "2026-11-16" },
+  { title: "春秋检测", cat: "玩机工具", link: "https://pan.xunlei.com/s/VP1EvX3HGt8JP3j9kYt46M3zA1?pwd=8f4j#", desc: "环境检测工具。", updated: "2026-11-16" },
+  { title: "环境检测器", cat: "实用工具", link: "https://pan.xunlei.com/s/VP1Evfq4jiIwyOo_vBnrukcqA1?pwd=rcf2#", desc: "环境检测仅供参考。", updated: "2026-11-16" },
+  { title: "手机端otg刷机工具", cat: "实用工具", link: "https://pan.xunlei.com/s/VP1EvjvMSUMFlMLaMgbWtECYA1?pwd=pjwb#", desc: "小米、一加、真我9008刷机。", updated: "2026-11-16" },
+  { title: "紫光展锐W527处理器Root", cat: "临时专区", link: "https://pan.xunlei.com/s/VP1EvpDzjiIwyOo_vB/", desc: "展锐W527处理器Root资源。", updated: "2026-11-16" }
 
   ];
 
@@ -498,7 +574,7 @@
   }
   pruneLegacyCache();
 
-  var state = { items: [], activeCat: "全部", keyword: "", authed: false, editingId: null };
+  var state = { items: [], activeCat: "作者推荐", keyword: "", authed: false, editingId: null };
 
   var toolbar = document.getElementById("toolbar");
   var listEl = document.getElementById("list");
@@ -550,13 +626,13 @@
   }
 
   function renderFilters() {
-    var fixedCats = ["临时专区", "工具专属", "实用工具", "玩机工具"];
+    var fixedCats = ["作者推荐", "临时专区", "工具专属", "实用工具", "玩机工具"];
     var cats = ["全部"].concat(fixedCats);
     state.items.forEach(function (it) { if (cats.indexOf(it.cat) === -1) cats.push(it.cat); });
     filtersEl.innerHTML = "";
     cats.forEach(function (c) {
       var b = document.createElement("button");
-      b.className = "chip" + (state.activeCat === c ? " active" : "");
+      b.className = "chip" + (c === "作者推荐" ? " featured" : "") + (state.activeCat === c ? " active" : "");
       b.textContent = c;
       b.addEventListener("click", function () { state.activeCat = c; render(); });
       filtersEl.appendChild(b);
